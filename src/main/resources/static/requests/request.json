@@ -1,0 +1,1 @@
+curl -X POST -H 'Content-Type:application/json' -d '{"items": [{"id":1, "quantidade":500}, {"id":45, "quantidade": 70}], "endereco": {"estado":"SP"}}'  http://localhost:8080/compra

@@ -2,17 +2,17 @@ package com.wordpress.carledwinti.spring.cloud.microservice.loja.dto;
 
 public class EnderecoDto {
 
-    private String logradouro;
+    private String endereco;
     private String complemento;
     private Integer numero;
     private String estado;
 
-    public String getLogradouro() {
-        return logradouro;
+    public String getEndereco() {
+        return endereco;
     }
 
-    public void setLogradouro(String logradouro) {
-        this.logradouro = logradouro;
+    public void setLogradouro(String endereco) {
+        this.endereco = endereco;
     }
 
     public String getComplemento() {
@@ -42,7 +42,7 @@ public class EnderecoDto {
     @Override
     public String toString() {
         return "Endereco{" +
-                "logradouro='" + logradouro + '\'' +
+                "endereco='" + endereco + '\'' +
                 ", complemento='" + complemento + '\'' +
                 ", numero=" + numero +
                 ", estado='" + estado + '\'' +
