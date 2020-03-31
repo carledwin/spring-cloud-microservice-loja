@@ -15,8 +15,13 @@ public class CompraRestController {
     @Autowired
     private CompraService compraService;
 
-    @PostMapping
-    public void realizarCompra(@RequestBody CompraDto compraDto){
-        compraService.realizaCompra(compraDto);
+    @PostMapping("/discovery-client")
+    public void realizarCompraDiscoveryClient(@RequestBody CompraDto compraDto){
+        compraService.realizaCompraDiscoveryClientSideEurekaRibbonLoadBalancer(compraDto);
+    }
+
+    @PostMapping("/feign")
+    public void realizarCompraFeign(@RequestBody CompraDto compraDto){
+        compraService.realizaCompraFeignClient(compraDto);
     }
 }
