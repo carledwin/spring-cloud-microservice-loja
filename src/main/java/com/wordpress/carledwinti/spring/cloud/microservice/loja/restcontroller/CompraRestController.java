@@ -1,5 +1,6 @@
 package com.wordpress.carledwinti.spring.cloud.microservice.loja.restcontroller;
 
+import com.wordpress.carledwinti.spring.cloud.microservice.loja.Compra;
 import com.wordpress.carledwinti.spring.cloud.microservice.loja.dto.CompraDto;
 import com.wordpress.carledwinti.spring.cloud.microservice.loja.service.CompraService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class CompraRestController {
     }
 
     @PostMapping("/feign")
-    public void realizarCompraFeign(@RequestBody CompraDto compraDto){
-        compraService.realizaCompraFeignClient(compraDto);
+    public Compra realizarCompraFeign(@RequestBody CompraDto compraDto){
+        return compraService.realizaCompraFeignClient(compraDto);
     }
 }

@@ -1,8 +1,10 @@
 package com.wordpress.carledwinti.spring.cloud.microservice.loja.service;
 
+import com.wordpress.carledwinti.spring.cloud.microservice.loja.Compra;
 import com.wordpress.carledwinti.spring.cloud.microservice.loja.client.FornecedorFeignClient;
 import com.wordpress.carledwinti.spring.cloud.microservice.loja.dto.CompraDto;
 import com.wordpress.carledwinti.spring.cloud.microservice.loja.dto.InfoFornecedorDto;
+import com.wordpress.carledwinti.spring.cloud.microservice.loja.dto.InfoPedidoDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +18,7 @@ public class CompraService {
 
     private Logger logger = LoggerFactory.getLogger(CompraService.class);
 
-    //Ja esta integrado com Rabbon, Eureka/EurekaServer, ClientSide LoadBalancer, ja recupera ip e porta que devem ser acessados
+    //Ja esta integrado com Ribbon, Eureka/EurekaServer, ClientSide LoadBalancer, ja recupera ip e porta que devem ser acessados
     @Autowired
     private FornecedorFeignClient fornecedorFeignClient;
 
@@ -25,6 +27,21 @@ public class CompraService {
 
     @Autowired
     private DiscoveryClient discoveryClientSideRibbon;
+
+    public Compra realizaCompraFeignClient(CompraDto compraDto) {
+
+        InfoFornecedorDto infoFornecedorDtoResponse = fornecedorFeignClient.getInfoByEstado(compraDto.getEndereco().getEstado());
+        logger.info("Com Feign: " + infoFornecedorDtoResponse.toString());
+
+        InfoPedidoDto infoPedidoDto = fornecedorFeignClient.realizaPedido(compraDto.getItems());
+
+        Compra compra = new Compra();
+        compra.setPedidoId(infoPedidoDto.getId());
+        compra.setTempoDePreparo(infoPedidoDto.getTempoDePreparo());
+        compra.setEnderecoDestino(compraDto.getEndereco().toString());
+
+        return compra;
+    }
 
     public void realizaCompraDiscoveryClientSideEurekaRibbonLoadBalancer(CompraDto compraDto) {
 
@@ -44,9 +61,4 @@ public class CompraService {
         logger.info("Com DiscoveryClient: " + infoFornecedorResponse.toString());
     }
 
-    public void realizaCompraFeignClient(CompraDto compraDto) {
-
-        InfoFornecedorDto infoFornecedorDtoResponse = fornecedorFeignClient.getInfoByEstado(compraDto.getEndereco().getEstado());
-        logger.info("Com Feign: " + infoFornecedorDtoResponse.toString());
-    }
 }
