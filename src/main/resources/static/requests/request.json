@@ -1,1 +1,3 @@
-curl -X POST -H 'Content-Type:application/json' -d '{"items": [{"id":1, "quantidade":500}, {"id":45, "quantidade": 70}], "endereco": {"estado":"SP"}}'  http://localhost:8080/compra
+curl -X POST -H 'Content-Type:application/json' -d '{"items": [{"id":1, "quantidade":500}, {"id":4, "quantidade": 70}], "endereco": {"estado":"SP"}}'  http://localhost:8080/compra/feign
+curl -X POST -H 'Content-Type:application/json' -d '{"items": [{"id":3, "quantidade":27}], "endereco": {"estado":"RJ"}}' http://localhost:8080/compra/discovery-client
+curl -X POST -H 'Content-Type:application/json' -d '{"items": [{"id":2, "quantidade":130}], "endereco": {"estado":"GO"}}' http://localhost:8080/compra/discovery-client
